@@ -1,0 +1,63 @@
+.container {
+    /* width: 100%; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 2px solid var(--border-section);
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.topbar {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    color: var(--text-primary);
+}
+.topbar button {
+    width: 3rem;
+    height: 3rem;
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
+}
+
+.blockField {
+    width: 100%;
+    flex: 10;
+    border: 2px solid var(--border-section);
+    overflow-y: auto;
+}
+
+.textField {
+    width: 100%;
+    flex: 1;
+    border: 2px solid var(--border-section);
+}
+
+.show {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    background: transparent;
+    border-left: 2px solid var(--border-section);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.show button {
+    width: 3rem;
+    height: 3rem;
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
+}

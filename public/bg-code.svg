@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="480" height="480" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#64748b" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#64748b" stop-opacity="0.06"/>
+    </linearGradient>
+  </defs>
+
+  <!-- subtle code lines -->
+  <rect x="40" y="60"  width="220" height="8" rx="4" fill="url(#fade)"/>
+  <rect x="40" y="92"  width="180" height="6" rx="3" fill="url(#fade)"/>
+  <rect x="40" y="120" width="140" height="6" rx="3" fill="url(#fade)"/>
+
+  <rect x="220" y="300" width="220" height="8" rx="4" fill="url(#fade)"/>
+  <rect x="260" y="332" width="180" height="6" rx="3" fill="url(#fade)"/>
+  <rect x="300" y="360" width="140" height="6" rx="3" fill="url(#fade)"/>
+
+  <!-- angle brackets and slash </>
+       kept inside tile to avoid seams -->
+  <g stroke="#64748b" stroke-opacity="0.20" stroke-width="3" fill="none">
+    <path d="M120 140 L90 170 L120 200"/>     <!-- < -->
+    <path d="M180 140 L210 170 L180 200"/>    <!-- > -->
+    <path d="M152 140 L172 200"/>             <!-- / -->
+  </g>
+
+  <!-- another pair -->
+  <g stroke="#64748b" stroke-opacity="0.18" stroke-width="3" fill="none" transform="translate(220,40)">
+    <path d="M120 140 L90 170 L120 200"/>
+    <path d="M180 140 L210 170 L180 200"/>
+    <path d="M152 140 L172 200"/>
+  </g>
+
+  <!-- square brackets [] -->
+  <g stroke="#64748b" stroke-opacity="0.18" stroke-width="6" fill="none">
+    <path d="M340 90 L320 90 L320 130 L340 130"/>
+    <path d="M360 90 L380 90 L380 130 L360 130"/>
+  </g>
+
+  <!-- faint dots -->
+  <g fill="#64748b" fill-opacity="0.10">
+    <circle cx="90" cy="300" r="3"/>
+    <circle cx="120" cy="330" r="2"/>
+    <circle cx="150" cy="360" r="3"/>
+    <circle cx="390" cy="220" r="2.5"/>
+    <circle cx="360" cy="250" r="2"/>
+  </g>
+</svg>

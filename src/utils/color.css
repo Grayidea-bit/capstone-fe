@@ -1,0 +1,14 @@
+:root {
+    --bg-primary: #121212; /* Example background color */
+    --bg-gradient: linear-gradient(135deg, #11151f, #202656, #0f1a68); /* Example gradient background */
+    --bg-section: #313131; /* Example section background color */
+    --bg-transparent: rgba(100, 108, 255, 0.5); /* Example transparent background color */
+
+    --border-section: #3c3c3c; /* Example section border color */
+
+    --text-primary: #efefef; /* Example primary text color */
+    --text-hint: #a0a0a0; /* Example hint text color */
+
+    --btn-bg: #646cffa6; /* Example button background color */
+    --btn-border: #535bf2; /* Example button border color */
+}
