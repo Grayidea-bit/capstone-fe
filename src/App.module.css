@@ -7,15 +7,6 @@
     justify-content: center;
 }
 
-.topbar {
-    flex: 1;
-    color: var(--text-primary);
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
 
 .mainContent {
     flex: 14;
@@ -23,4 +14,6 @@
     flex-direction: column;
     align-content: center;
     justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
 }

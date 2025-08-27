@@ -1,24 +1,54 @@
-import styles from "./GithubLogin.module.css"; // 假設您有一個 CSS 模組來處理樣式
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { setIsLogin } from "../../../../stores/slice/progressSlice";
-
-const CLIENT_ID = "Ov23li56CKrX18dJODju"; // from GitHub Developer Settings
-const REDIRECT_URI = "http://localhost:8000/github/callback/"; // your Django endpoint
-
+import { setIsLogin, setProgress } from "../../../../stores/slice/progressSlice";
+import axios from "axios";
+const CLIENT_ID = "Ov23li56CKrX18dJODju";
+const REDIRECT_URI = "http://localhost:5175";
+import styles from "./GithubLogin.module.css"; // 假設您有一個 CSS 模組來處理樣式
+import { useEffect, useRef } from 'react';
 export const GitHubLogin = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
-  
-  // 建立 GitHub OAuth URL
+  const processingCodeRef = useRef<string | null>(null);  
+
   const githubAuthURL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
     REDIRECT_URI
   )}&scope=read:user%20user:email%20repo`;
 
-  const handleLogin = () => {
-    localStorage.setItem('isLogin', 'true'); // 設置登入狀態
-    dispatch(setIsLogin(true));
-    // setIsLoading(true);
-    // Redirect user to GitHub login
-    // window.location.href = githubAuthURL;
+   useEffect(() => {
+    const fetchData = async () => {
+      const query = new URLSearchParams(location.search);
+      const code = query.get('code');
+      console.log("Authorization code:", code);
+      if(code) {
+          if(processingCodeRef.current !== code) processingCodeRef.current = code;
+          await axios.get(`http://localhost:8000/login/?code=${code}`, {
+              headers: { Accept: 'application/json' },
+            })
+            .then((response) => {
+              if (response.data) {
+                console.log(response.data);
+                dispatch(setIsLogin(true));
+                dispatch(setProgress('select'));
+                localStorage.setItem('isLogin', 'true'); // 設置登入狀態
+                navigate('/');
+              }
+            });
+      }
+    };
+    fetchData();
+  }, [location.search, navigate]);
+
+  const handleLogin = async () => {
+    processingCodeRef.current = null;
+    window.location.href = githubAuthURL;
+    // const response = await axios.get('http://localhost:8000/login/');
+    // const data = response.data;
+    // console.log(data);
+    
+
+    
   };
 
   return (

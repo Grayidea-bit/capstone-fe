@@ -6,6 +6,8 @@ import type { RootState } from './stores/store';
 
 import styles from './App.module.css';
 import { setIsLogin } from './stores/slice/progressSlice';
+import Topbar from './page/Topbar/Topbar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   
@@ -23,22 +25,21 @@ function App() {
   }
 
   return (
-    <div className={styles.container}>
-      {isLogin ?
-        <div className={styles.topbar}>
-          <h1>GitHub收藏庫分析器</h1>
-          <button onClick={() => {
-            localStorage.removeItem('isLogin');
-            dispatch(setIsLogin(false));
-          }}>
-            登出
-          </button>
-        </div>
-      :<></>}
-      <div className={styles.mainContent}>
-        {PageLogic()}
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className={styles.container}>
+              <Topbar isReveal={isLogin} />
+              <div className={styles.mainContent}>
+                <PageLogic />
+              </div>
+            </div>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

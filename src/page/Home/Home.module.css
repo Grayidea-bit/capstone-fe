@@ -3,7 +3,7 @@
     height: 100%;
     display: grid;
     /* 使用 fr 單位讓動畫更平滑 */
-    grid-template-columns: 0fr 3fr 0fr; /* 左收縮 中間大 右小 */
+    grid-template-columns: 0fr 3fr 1.5fr; /* 左收縮 中間大 右小 */
     grid-template-rows: 1fr;
     gap: 0;
     background: var(--bg-section);
@@ -11,15 +11,7 @@
 }
 
 .container.sidebarExpanded {
-    grid-template-columns: 1fr 3fr 0fr; /* 左展開 */
-}
-
-.container.chatExpanded {
-    grid-template-columns: 0fr 3fr 1.5fr; /* 右展開 */
-}
-
-.container.sidebarExpanded.chatExpanded {
-    grid-template-columns: 1fr 3fr 1.5fr; /* 都展開 */
+    grid-template-columns: 1fr 3fr 1.5fr; /* 左展開 */
 }
 
 /* 設定最小寬度確保內容顯示 */

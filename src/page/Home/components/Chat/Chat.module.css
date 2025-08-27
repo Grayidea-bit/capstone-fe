@@ -3,25 +3,33 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     border-left: 2px solid var(--border-section);
-    overflow-y: auto;
+    /* overflow-y: auto; */
     max-height: 100vh;
+    min-width: 0;
 }
 
 .topbar {
     width: 100%;
-    flex: 1;
+
+    flex: 0 0 auto;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0.5rem;
     color: var(--text-primary);
 }
+
+.topbar h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
 .topbar button {
-    width: 3rem;
+    width: 7rem;
     height: 3rem;
     background: transparent;
     color: var(--text-primary);
@@ -29,17 +37,108 @@
     border-radius: 0.7rem;
 }
 
+.summary {
+    padding: 1cqi;
+    width: 100%;
+    min-height: 0;
+    flex: 1;
+    border-top: 1px solid var(--border-section);
+    overflow-y: auto;
+    scrollbar-width: none;
+    overflow-x: hidden;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: white;
+}
+
 .blockField {
     width: 100%;
-    flex: 10;
-    border: 2px solid var(--border-section);
+    min-height: 0;
+    flex: 1;
+    border-top: 1px solid var(--border-section);
     overflow-y: auto;
+    scrollbar-width: none;
+    overflow-x: hidden;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: flex-start; */
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.message.user {
+    align-items: flex-end;
+    justify-content: flex-end;
+    /* background: white; */
+    margin-right: 1rem;
+}
+
+.message.assistant {
+    align-items: flex-start;
+    justify-content: flex-start;
+    background: var(--bg-section);
+    margin-left: 1rem;
+}
+
+.user .content {
+    max-width: 80%;
+    background: white;
+    padding: 0.5rem;
+    border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
+}
+
+.assistant .content {
+    max-width: 80%;
+    background: white;
+    padding: 0.5rem;
+    border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
 }
 
 .textField {
     width: 100%;
-    flex: 1;
+    flex: 0 0 auto;
+    border-top: 2px solid var(--border-section);
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.textField textarea {
+    width: 80%;
+    height: 4rem;
+    padding: 0.5rem;
     border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
+    background: gray;
+    color: var(--text-primary);
+    
+    overflow: hidden;
+}
+
+.textField textarea::placeholder {
+    color: white;
+}
+
+.textField button {
+    width: 3rem;
+    height: 3rem;
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
+    cursor: pointer;
 }
 
 .show {

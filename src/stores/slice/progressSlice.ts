@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface progressStatus {
-  progress: 'login' | 'home';
+  progress: 'login' | 'select' | 'reveal';
   isLogin: boolean;
 }
 

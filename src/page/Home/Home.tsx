@@ -1,4 +1,4 @@
-import { Sidebar, Summary, CodeField, Chat } from "./components/Components";
+import { Sidebar, CodeField, Chat } from "./components/Components";
 import { useSelector } from "react-redux";
 import styles from "./Home.module.css";
 import type { RootState } from "@/stores/store";
@@ -9,14 +9,12 @@ const Home = () => {
   return (
     <div className={`${styles.container} 
       ${components.isSideBarExpanded ? styles.sidebarExpanded : ""}
-      ${components.isChatExpanded ? styles.chatExpanded : ""}
       `}>
       <div className={styles.sidebar}>
         <Sidebar />
       </div>
       <div className={styles.mainContent}>
         <CodeField />
-        <Summary />
       </div>
       <div className={styles.chat}>
         <Chat />
