@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { setIsLogin, setProgress } from "../../../../stores/slice/progressSlice";
 import axios from "axios";
@@ -32,8 +32,13 @@ export const GitHubLogin = () => {
                 dispatch(setIsLogin(true));
                 dispatch(setProgress('select'));
                 localStorage.setItem('isLogin', 'true'); // 設置登入狀態
-                navigate('/');
+                localStorage.setItem('access_token', response.data.access_token); 
+                localStorage.setItem('username', response.data.user.login);
+                localStorage.setItem('avatar_url', response.data.user.avatar_url);
+                <Navigate to="/" replace />;
               }
+            }).catch((error) => {
+              console.error("Error during login:", error);
             });
       }
     };
@@ -43,12 +48,6 @@ export const GitHubLogin = () => {
   const handleLogin = async () => {
     processingCodeRef.current = null;
     window.location.href = githubAuthURL;
-    // const response = await axios.get('http://localhost:8000/login/');
-    // const data = response.data;
-    // console.log(data);
-    
-
-    
   };
 
   return (
