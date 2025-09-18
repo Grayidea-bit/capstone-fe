@@ -53,6 +53,18 @@
     color: white;
 }
 
+.textarea {
+    width: 100%;
+    /* height: 10rem; */
+    padding: 1rem;
+    background: gray;
+    border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
+    overflow-y: auto;
+    scrollbar-width: none;
+    /* overflow-x: hidden; */
+}
+
 .blockField {
     width: 100%;
     min-height: 0;
@@ -82,17 +94,28 @@
     margin-right: 1rem;
 }
 
+.identity {
+    font-weight: bold;
+    text-transform: capitalize;
+    color: white;
+}
+
+.timestamp {
+    font-size: 0.7rem;
+    color: white;
+}
+
 .message.assistant {
     align-items: flex-start;
     justify-content: flex-start;
-    background: var(--bg-section);
+    /* background: var(--bg-section); */
     margin-left: 1rem;
 }
 
 .user .content {
     max-width: 80%;
     background: white;
-    padding: 0.5rem;
+    padding: 1rem;
     border: 2px solid var(--border-section);
     border-radius: 0.7rem;
 }
@@ -100,7 +123,7 @@
 .assistant .content {
     max-width: 80%;
     background: white;
-    padding: 0.5rem;
+    padding: 1.5rem;
     border: 2px solid var(--border-section);
     border-radius: 0.7rem;
 }
@@ -114,6 +137,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    
 }
 .textField textarea {
     width: 80%;
@@ -123,7 +147,7 @@
     border-radius: 0.7rem;
     background: gray;
     color: var(--text-primary);
-    
+    resize: none;
     overflow: hidden;
 }
 

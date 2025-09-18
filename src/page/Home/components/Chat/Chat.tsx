@@ -4,11 +4,14 @@ import styles from "./Chat.module.css";
 import { useState } from "react";
 import { IconButton, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
+import ReactMarkdown from "react-markdown";
+
 
 export const Chat = () => {
     // const [shouldRenderContent, setShouldRenderContent] = useState(false);
-    const [alignment, setAlignment] = useState("chat");
+    const [alignment, setAlignment] = useState<"chat" | "summary">("summary");
     const chat = useSelector((state: RootState) => state.chat);
+    const overview = useSelector((state: RootState) => state.repo.overview || "載入中...");
 
     const createMessages = () => {
         return (
@@ -16,7 +19,9 @@ export const Chat = () => {
                 {chat.messages.map((msg) => (
                     <div key={msg.timestamp} className={`${styles.message} ${styles[`${msg.identity}`]}`}>
                         <span className={styles.identity}>{msg.identity}</span>
-                        <span className={styles.content}>{msg.content}</span>
+                        <span className={styles.content}>
+                            <ReactMarkdown >{msg.content}</ReactMarkdown>
+                        </span>
                         <span className={styles.timestamp}>{msg.timestamp}</span>
                     </div>
             ))}
@@ -28,9 +33,17 @@ export const Chat = () => {
         if (alignment === "chat") {
             return createMessages();
         }
+
         return (
             <div className={styles.summary}>
-                <p>這是簡易的摘要範例</p>
+                <h3>專案概述</h3>
+                <div className={styles.textarea}>
+                    <ReactMarkdown >{overview}</ReactMarkdown>
+                </div>
+                <h3>commit概述</h3>
+                <div className={styles.textarea}>
+                    <ReactMarkdown >{overview}</ReactMarkdown>
+                </div>
             </div>
         );
     }
@@ -53,7 +66,7 @@ export const Chat = () => {
 
 
     const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-        setAlignment(newAlignment);
+        setAlignment(newAlignment as "chat" | "summary");
     }
 
   return (

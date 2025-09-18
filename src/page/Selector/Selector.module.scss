@@ -1,0 +1,93 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--bg-section);
+    padding: 2rem;
+    gap: 1rem;
+    border-radius: 0.7rem;
+    border: 2px solid var(--border-section);
+
+    color: var(--text-primary);
+    opacity: 1;
+
+    animation: fade-in 0.5s ease-in-out forwards;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    select {
+        color: white;
+        padding: 1rem 1.5rem;
+        background: transparent;
+        border: 2px solid var(--border-section);
+        border-radius: 7px;
+        text-align: center;         // 讓選單內容置中
+        text-align-last: center;    
+        font-size: 2rem;
+    }
+
+    option {
+        background-color: var(--bg-section);
+        color: var(--text-primary);
+    }
+
+    button {
+        padding: 2rem 4rem;
+        background-color: var(--btn-bg);
+        color: var(--text-primary);
+        border: 2px solid var(--btn-border);
+        border-radius: 0.7rem;
+        cursor: pointer;
+        padding: 1rem;
+        font-size: 1.5rem;
+    }
+    &.fade-out {
+        animation: fade-out 0.5s ease-in-out forwards;
+    }
+}
+
+.title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    bottom: 1rem;
+}
+
+@keyframes fade-in {
+    from {
+        transform: translateY(-5rem);
+        opacity: 0;
+        visibility: hidden;
+    }
+    to {
+        transform: translateY(0rem); // 或你想要的距離
+        opacity: 1; // 可選
+    }
+}
+
+@keyframes fade-out {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-5rem); // 或你想要的距離
+        opacity: 0; // 可選
+        visibility: hidden;
+    }
+}

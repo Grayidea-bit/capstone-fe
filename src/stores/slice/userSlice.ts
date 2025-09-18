@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface userStatus {
   name: string;
   avatarURL: string;
-  sessionId: string;
+  access_token: string;
 }
 
 const initialState: userStatus = {
   name: "",
   avatarURL: "",
-  sessionId: "",
+  access_token: "",
 };
 
 const userSlice = createSlice({
@@ -22,10 +22,10 @@ const userSlice = createSlice({
         setAvatarURL: (state, action) => {
             state.avatarURL = action.payload;
         },
-        setSessionId: (state, action) => {
-            state.sessionId = action.payload;
+        setAccessToken: (state, action) => {
+            state.access_token = action.payload;
         }
     }
 })
-export const { setName, setAvatarURL, setSessionId } = userSlice.actions;
+export const { setName, setAvatarURL, setAccessToken } = userSlice.actions;
 export default userSlice.reducer;

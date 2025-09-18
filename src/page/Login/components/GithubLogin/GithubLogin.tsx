@@ -6,6 +6,9 @@ const CLIENT_ID = "Ov23li56CKrX18dJODju";
 const REDIRECT_URI = "http://localhost:5175";
 import styles from "./GithubLogin.module.css"; // 假設您有一個 CSS 模組來處理樣式
 import { useEffect, useRef } from 'react';
+import { setAccessToken, setAvatarURL, setName } from '@/stores/slice/userSlice';
+
+
 export const GitHubLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,11 +34,15 @@ export const GitHubLogin = () => {
                 console.log(response.data);
                 dispatch(setIsLogin(true));
                 dispatch(setProgress('select'));
+                dispatch(setAvatarURL(response.data.user.avatar_url));
+                dispatch(setAccessToken(response.data.access_token));
+                dispatch(setName(response.data.user.login));
+
                 localStorage.setItem('isLogin', 'true'); // 設置登入狀態
                 localStorage.setItem('access_token', response.data.access_token); 
                 localStorage.setItem('username', response.data.user.login);
                 localStorage.setItem('avatar_url', response.data.user.avatar_url);
-                <Navigate to="/" replace />;
+                navigate("/selector", { replace: true });
               }
             }).catch((error) => {
               console.error("Error during login:", error);

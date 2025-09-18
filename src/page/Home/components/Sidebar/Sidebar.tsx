@@ -38,6 +38,11 @@ export const Sidebar = () => {
                 <ChevronLeftIcon fontSize='large'/>
             </button>
         </div>
+        <div className={styles.content}>
+            <p>repo selector</p>
+            <p>commit selector</p>
+            <p>file tree</p>
+        </div>
     </div>
   );
 };
