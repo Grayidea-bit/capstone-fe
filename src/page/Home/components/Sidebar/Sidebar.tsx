@@ -12,6 +12,8 @@ export const Sidebar = () => {
     const userName = localStorage.getItem('username');
     const components = useSelector((state: RootState) => state.components);
     const repoList = useSelector((state: RootState) => state.repo.repos || []);
+    const selectedRepo = useSelector((state: RootState) => state.repo.selectedRepo);
+    const selectedCommit = useSelector((state: RootState) => state.repo.selectedCommit);
     const commitList = useSelector((state: RootState) => state.repo.commits || []);
     const dispatch = useDispatch();
     const handleHideClick = () => {
@@ -30,6 +32,12 @@ export const Sidebar = () => {
             </div>
         );
     }
+
+    const handleNewRepoChange = (repoName: string) => {
+        dispatch(setSelectedCommit(null));
+        const selectedRepo = repoList.find(repo => repo.name === repoName);
+        
+    }
     const handleNewCommitChange = async (commitSha: string) => {
         const selectedCommit = commitList.find(commit => commit.sha === commitSha);
         dispatch(setSelectedCommit(selectedCommit));
@@ -41,7 +49,10 @@ export const Sidebar = () => {
   return (
     <div className={styles.container}>
         <div className={styles.topbar}>
-            <h2>Hello, {userName}</h2>
+            <div className={styles.greeting}>
+                <h2>Hello, </h2>
+                <h2>{userName}</h2>
+            </div>
             <button 
             className={styles.hideBtn}
             onClick={handleHideClick}
@@ -52,7 +63,11 @@ export const Sidebar = () => {
         <div className={styles.content}>
             <form>
                 <label htmlFor="repo-select">Repository:</label>
-                <select id="repo-select">
+                <select 
+                    id="repo-select"
+                    value={selectedRepo?.name || ""}
+                    onChange={(e) => {handleNewRepoChange(e.target.value);}}
+                >
                     {repoList.map((value, index) => (
                         <option key={index} value={value.name}>
                             {value.name}
@@ -62,7 +77,11 @@ export const Sidebar = () => {
             </form>
             <form>
                 <label htmlFor="commit-select">Commit:</label>
-                <select id="commit-select" onChange={(e) => {handleNewCommitChange(e.target.value);}}>
+                <select 
+                    id="commit-select" 
+                    value={selectedCommit?.sha || ""}
+                    onChange={(e) => {handleNewCommitChange(e.target.value);}}
+                >
                     {commitList.map((value, index) => (
                         <option key={index} value={value.sha}>
                             {value.sha.substring(0, 7) + ": " + value.name}

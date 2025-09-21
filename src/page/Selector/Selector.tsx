@@ -90,25 +90,27 @@ const Selector = () => {
 
 
     return (
-        <div className={`${styles.container} ${animatedOut ? styles["fade-out"] : ""}`}>
-            <div className={styles.title}>
-                <h1>Welcome {userName}</h1>
+        <div className={styles.selector}>
+            <div className={`${styles.container} ${animatedOut ? styles["fade-out"] : ""}`}>
+                <div className={styles.title}>
+                    <h1>Welcome {userName}</h1>
+                </div>
+                <form>
+                    {progress === 'repo' ? <label>Select a repository:</label> : <label>Select a commit:</label>}
+                    <select>
+                        {displayList.map((value, index) => (
+                            <option key={index} value={value}>
+                                {value}
+                            </option>
+                        ))}
+                    </select>
+                </form>
+                <button
+                    onClick={progress === 'repo' ? handleRepoChange : handleCommitChange}
+                >
+                    GO
+                </button>
             </div>
-            <form>
-                {progress === 'repo' ? <label>Select a repository:</label> : <label>Select a commit:</label>}
-                <select>
-                    {displayList.map((value, index) => (
-                        <option key={index} value={value}>
-                            {value}
-                        </option>
-                    ))}
-                </select>
-            </form>
-            <button
-                onClick={progress === 'repo' ? handleRepoChange : handleCommitChange}
-            >
-                GO
-            </button>
         </div>
     );
 }
