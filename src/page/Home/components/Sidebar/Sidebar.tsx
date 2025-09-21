@@ -1,13 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setSideBarExpanded } from '@/stores/slice/componentsSlice';
+import { fetchCommitOverview } from '@/utils/commitAPI';
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import styles from './Sidebar.module.css';
+import styles from './Sidebar.module.scss';
 import type { RootState } from '@/stores/store';
+import { setSelectedCommit } from '@/stores/slice/repoSlice';
 
 export const Sidebar = () => {
+    const userName = localStorage.getItem('username');
     const components = useSelector((state: RootState) => state.components);
+    const repoList = useSelector((state: RootState) => state.repo.repos || []);
+    const commitList = useSelector((state: RootState) => state.repo.commits || []);
     const dispatch = useDispatch();
     const handleHideClick = () => {
         dispatch(setSideBarExpanded(false));
@@ -25,12 +30,18 @@ export const Sidebar = () => {
             </div>
         );
     }
+    const handleNewCommitChange = async (commitSha: string) => {
+        const selectedCommit = commitList.find(commit => commit.sha === commitSha);
+        dispatch(setSelectedCommit(selectedCommit));
+        const res = await fetchCommitOverview();
+        console.log(res);
+    }
 
     
   return (
     <div className={styles.container}>
         <div className={styles.topbar}>
-            <h2>Sidebar</h2>
+            <h2>Hello, {userName}</h2>
             <button 
             className={styles.hideBtn}
             onClick={handleHideClick}
@@ -39,9 +50,27 @@ export const Sidebar = () => {
             </button>
         </div>
         <div className={styles.content}>
-            <p>repo selector</p>
-            <p>commit selector</p>
-            <p>file tree</p>
+            <form>
+                <label htmlFor="repo-select">Repository:</label>
+                <select id="repo-select">
+                    {repoList.map((value, index) => (
+                        <option key={index} value={value.name}>
+                            {value.name}
+                        </option>
+                    ))}
+                </select>
+            </form>
+            <form>
+                <label htmlFor="commit-select">Commit:</label>
+                <select id="commit-select" onChange={(e) => {handleNewCommitChange(e.target.value);}}>
+                    {commitList.map((value, index) => (
+                        <option key={index} value={value.sha}>
+                            {value.sha.substring(0, 7) + ": " + value.name}
+                        </option>
+                    ))}
+                </select>
+            </form>
+            <label htmlFor="commit-select">FileTree:</label>
         </div>
     </div>
   );

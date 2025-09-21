@@ -1,38 +1,60 @@
 .container {
+    box-sizing: border-box;
     width: 100%;
-    height: 100%;
     display: grid;
-    /* 使用 fr 單位讓動畫更平滑 */
+    overflow-x: hidden;
+    // 使用 fr 單位讓動畫更平滑 
     grid-template-columns: 0fr 3fr 1.5fr; /* 左收縮 中間大 右小 */
     grid-template-rows: 1fr;
     gap: 0;
     // background: var(--bg-section);
     transition: grid-template-columns 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: fade-in 0.5s ease-in-out;
 
-    &.fade-in {
-        animation: fade-in 0.5s ease-in-out;
+    .sidebar {
+        width: 4.5rem;
+    }
+
+    .chat {
+        right: 0;
+        width: 25rem;
+        transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .mainContent {
+        padding-inline: 0.5rem;
+        position: relative;
+        width: calc(100vw - 44rem);
+        left: 4.5rem;
+        flex: 1;
+        top: 0;
+        height: fit-content;
     }
 }
 
 .container.sidebarExpanded {
-    grid-template-columns: 1fr 3fr 1.5fr; /* 左展開 */
+    .sidebar {
+        width: 18rem;
+        left: 0;
+    }
+    .mainContent{
+        left: 17rem;
+        transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 }
 
-/* 設定最小寬度確保內容顯示 */
-.sidebar {
-    overflow: hidden;
+.sidebar, .chat {
+    height: 100vh;
+    position: fixed;
+    top: 0;       // ★ 讓它們黏在上方
     min-width: 4.5rem;
+    z-index: 10;      // 可選，確保在上層
+    // background: #181a1b; // 可選，避免透明
+    overflow: hidden; // 可選
 }
 
-.chat {
-    overflow: hidden;
-    min-width: 4.5rem;
-}
-.mainContent {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
+
+
 
 @keyframes fade-in {
     from {

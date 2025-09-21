@@ -15,6 +15,8 @@ export interface repoStatus {
     commits?: commit[];
     selectedCommit?: commit;
     overview?: string;
+    commitOverview?: string;
+    diff?: string;
 }
 
 const initialState: repoStatus = {
@@ -23,6 +25,8 @@ const initialState: repoStatus = {
     commits: [],
     selectedCommit: undefined,
     overview: undefined,
+    commitOverview: undefined,
+    diff: undefined,
 };
 
 const repoSlice = createSlice({
@@ -43,9 +47,15 @@ const repoSlice = createSlice({
         },
         setOverview: (state, action) => {
             state.overview = action.payload;
+        },
+        setCommitOverview: (state, action) => {
+            state.commitOverview = action.payload;
+        },
+        setDiff: (state, action) => {
+            state.diff = action.payload;
         }
 
     }
 })
-export const { setRepos, setSelectedRepo, setCommits, setSelectedCommit, setOverview } = repoSlice.actions;
+export const { setRepos, setSelectedRepo, setCommits, setSelectedCommit, setOverview, setCommitOverview, setDiff } = repoSlice.actions;
 export default repoSlice.reducer;

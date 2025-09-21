@@ -1,4 +1,4 @@
-.container {
+/* .container {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -17,3 +17,10 @@
     box-sizing: border-box;
     overflow: hidden;
 }
+
+.d2h-code-linenumber {
+  position: sticky;
+  left: 0;
+  background: #181a1b;
+  z-index: 2;
+} */

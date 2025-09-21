@@ -17,4 +17,5 @@ body {
   background-size: 100vw 100vw;
   background-repeat: repeat;
   background-attachment: fixed;
+  overflow-x: hidden;
 }

@@ -12,6 +12,7 @@ export const Chat = () => {
     const [alignment, setAlignment] = useState<"chat" | "summary">("summary");
     const chat = useSelector((state: RootState) => state.chat);
     const overview = useSelector((state: RootState) => state.repo.overview || "載入中...");
+    const commitOverview = useSelector((state: RootState) => state.repo.commitOverview || "載入中...");
 
     const createMessages = () => {
         return (
@@ -42,7 +43,7 @@ export const Chat = () => {
                 </div>
                 <h3>commit概述</h3>
                 <div className={styles.textarea}>
-                    <ReactMarkdown >{overview}</ReactMarkdown>
+                    <ReactMarkdown >{commitOverview}</ReactMarkdown>
                 </div>
             </div>
         );

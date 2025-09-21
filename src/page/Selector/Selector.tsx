@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import styles from "./Selector.module.scss";
 import type { RootState } from "@/stores/store";
-import { setOverview, setRepos, setSelectedCommit, setSelectedRepo } from "@/stores/slice/repoSlice";
+import { setCommits, setOverview, setRepos, setSelectedCommit, setSelectedRepo, setCommitOverview } from "@/stores/slice/repoSlice";
 import { useNavigate } from "react-router-dom";
+import { fetchCommitOverview } from "@/utils/commitAPI";
 
 const Selector = () => {
     const [progress, setProgress] = useState<"repo" | "commit">("repo");
@@ -41,7 +42,7 @@ const Selector = () => {
                         sha: commit.sha,
                         name: commit.name
                     }));
-                    // localStorage.setItem('commits', JSON.stringify(commits));
+                    dispatch(setCommits(commits));
                     setDisplayList(commits.map((commit: any) => commit.sha.substring(0, 7) + ": " + commit.name));
                 }).catch((error) => {
                     console.error("Error fetching commit list:", error);
@@ -59,9 +60,11 @@ const Selector = () => {
         setAnimatedOut(false);
     };
 
-    const handleCommitChange = () => {
-        const selectedCommit = commits.find(commit => commit.sha === (document.querySelector('select') as HTMLSelectElement).value);
+    const handleCommitChange = async () => {
+        dispatch(setOverview("載入中..."));
+        const selectedCommit = commits.find(commit => commit.sha.substring(0, 7) + ": " + commit.name === (document.querySelector('select') as HTMLSelectElement).value);
         dispatch(setSelectedCommit(selectedCommit));
+
         setAnimatedOut(true);
         new Promise(resolve => {
             axios.get(`http://localhost:8000/overview/repos/${selectedRepo?.owner}/${selectedRepo?.name}/?access_token=${localStorage.getItem('access_token')}`)
@@ -71,6 +74,15 @@ const Selector = () => {
                 resolve(true);
             });
         });
+        await fetchCommitOverview();
+        // new Promise(resolve => {
+        //     axios.post(`http://localhost:8000/diff/repos/${selectedRepo?.owner}/${selectedRepo?.name}/commits/${selectedCommit?.sha}/?access_token=${localStorage.getItem('access_token')}`)
+        //     .then((response) => {
+        //         console.log(response.data);
+        //         dispatch(setCommitOverview(response.data.analysis));
+        //         resolve(true);
+        //     });
+        // });
         setTimeout(() => {
             navigate("/home", { replace: true });
         }, 500);
