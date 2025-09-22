@@ -7,6 +7,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import styles from './Sidebar.module.scss';
 import type { RootState } from '@/stores/store';
 import { setSelectedCommit } from '@/stores/slice/repoSlice';
+import FileTree from './FileTree';
+
 
 export const Sidebar = () => {
     const userName = localStorage.getItem('username');
@@ -89,7 +91,10 @@ export const Sidebar = () => {
                     ))}
                 </select>
             </form>
-            <label htmlFor="commit-select">FileTree:</label>
+            <div className={styles.fileTree}>
+                <label htmlFor="commit-select">FileTree:</label>
+                <FileTree />
+            </div>
         </div>
     </div>
   );

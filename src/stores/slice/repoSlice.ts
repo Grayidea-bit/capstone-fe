@@ -1,20 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { Repo, Commit } from "@/utils/type";
 
-interface Repo {
-    name: string;
-    owner: string;
-}
-
-interface commit {
-    sha: string;
-    name: string;
-}
 export interface repoStatus {
     repos?: Repo[];
     selectedRepo?: Repo;
-    commits?: commit[];
-    selectedCommit?: commit;
+    commits?: Commit[];
+    selectedCommit?: Commit;
     overview?: string;
+    fileStructure?: string;
     commitOverview?: string;
     diff?: string;
 }
@@ -25,6 +18,7 @@ const initialState: repoStatus = {
     commits: [],
     selectedCommit: undefined,
     overview: undefined,
+    fileStructure: undefined,
     commitOverview: undefined,
     diff: undefined,
 };
@@ -48,6 +42,9 @@ const repoSlice = createSlice({
         setOverview: (state, action) => {
             state.overview = action.payload;
         },
+        setFileStructure: (state, action) => {
+            state.fileStructure = action.payload;
+        },
         setCommitOverview: (state, action) => {
             state.commitOverview = action.payload;
         },
@@ -57,5 +54,5 @@ const repoSlice = createSlice({
 
     }
 })
-export const { setRepos, setSelectedRepo, setCommits, setSelectedCommit, setOverview, setCommitOverview, setDiff } = repoSlice.actions;
+export const { setRepos, setSelectedRepo, setCommits, setSelectedCommit, setOverview, setFileStructure, setCommitOverview, setDiff } = repoSlice.actions;
 export default repoSlice.reducer;

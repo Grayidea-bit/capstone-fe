@@ -1,6 +1,23 @@
 import { store } from '@/stores/store';
-import { setCommitOverview, setDiff } from '@/stores/slice/repoSlice';
+import { setCommitOverview, setCommits, setDiff } from '@/stores/slice/repoSlice';
 import axios from 'axios';
+
+
+export const fetchCommitList = async () => { 
+    const state = store.getState();
+    const selectedRepo = state.repo.selectedRepo;
+    const repo = selectedRepo?.name;
+    const owner = selectedRepo?.owner;
+
+    const response = await axios.get(`http://localhost:8000/repo_commit/repos/${owner}/${repo}/?access_token=${localStorage.getItem('access_token')}`)
+    const commits = response.data.commits.map((commit: any) => ({
+        sha: commit.sha,
+        name: commit.name
+    }));
+    store.dispatch(setCommits(commits));
+    return commits;
+}
+
 
 export const fetchCommitOverview = async () => {
     const state = store.getState();

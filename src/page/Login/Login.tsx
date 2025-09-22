@@ -4,8 +4,10 @@ import styles from "./Login.module.css"; // 假設您有一個 CSS 模組來處�
 
 const Login = () => {
   return (
-    <div className={styles.container}>
-      <GitHubLogin />
+    <div className={styles.loginLayout}>
+      <div className={styles.container}>
+        <GitHubLogin />
+      </div>
     </div>
   );
 };
