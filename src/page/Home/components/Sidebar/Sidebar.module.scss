@@ -5,7 +5,6 @@
     flex-direction: column;
 
     padding: 1rem;
-    border-right: 2px solid var(--border-section);
     gap: 1rem;
 }
 
@@ -14,7 +13,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     color: var(--text-primary);
 }
 
@@ -58,8 +57,8 @@
 .content {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    // align-items: flex-end;
     gap: 1rem;
 
     label {

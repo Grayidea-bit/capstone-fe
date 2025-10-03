@@ -1,12 +1,8 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    width: 100vw;
-    background-color: var(--bg-primary);
-    padding: 1rem;
-    overflow-y: auto;
+    box-sizing: border-box;
+    position: relative;
+    width: 70%;
+    left: 15%;
     overflow-x: hidden;
+    gap: 0;
 }

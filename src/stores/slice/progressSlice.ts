@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { ProgressPage } from "@/utils/type";
 
 export interface progressStatus {
   progress: 'login' | 'select' | 'reveal';
   isLogin: boolean;
+  page: ProgressPage;
 }
 
 const initialState: progressStatus = {
     progress: 'login',
     isLogin: false,
+    page: 'fileTreeAndOverview',
 };
 
 const progressSlice = createSlice({
@@ -20,7 +23,10 @@ const progressSlice = createSlice({
         setIsLogin: (state, action) => {
             state.isLogin = action.payload;
         },
+        setPage: (state, action) => {
+            state.page = action.payload;
+        },
     }
 })
-export const { setProgress, setIsLogin } = progressSlice.actions;
+export const { setProgress, setIsLogin, setPage } = progressSlice.actions;
 export default progressSlice.reducer;

@@ -1,13 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setSideBarExpanded } from '@/stores/slice/componentsSlice';
-import { fetchCommitOverview } from '@/utils/commitAPI';
+import { fetchCommitList, fetchCommitOverview } from '@/utils/commitAPI';
 
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import styles from './Sidebar.module.scss';
 import type { RootState } from '@/stores/store';
-import { setSelectedCommit } from '@/stores/slice/repoSlice';
-import FileTree from './FileTree';
+import { setCommits, setSelectedCommit, setSelectedRepo } from '@/stores/slice/repoSlice';
+import { useEffect } from 'react';
+import { fetchRepoList } from '@/utils/repoAPI';
 
 
 export const Sidebar = () => {
@@ -17,34 +15,43 @@ export const Sidebar = () => {
     const selectedRepo = useSelector((state: RootState) => state.repo.selectedRepo);
     const selectedCommit = useSelector((state: RootState) => state.repo.selectedCommit);
     const commitList = useSelector((state: RootState) => state.repo.commits || []);
-    const dispatch = useDispatch();
-    const handleHideClick = () => {
-        dispatch(setSideBarExpanded(false));
-    }
 
-    if(components.isSideBarExpanded === false) {
-        return (
-            <div className={styles.show}>
-                <button 
-                    className={styles.showBtn}
-                    onClick={() => dispatch(setSideBarExpanded(true))}
-                >
-                    <ChevronRightIcon  fontSize='large'/>
-                </button>
-            </div>
-        );
-    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetchRepoList();
+            if (response && response.length > 0) {
+                dispatch(setSelectedRepo(response[0]));
+            }
+        };
+        fetchData();
+    }, [userName]);
+
+    useEffect(() => {
+        const fetchCommits = async () => {
+            if (selectedRepo) {
+                const response = await fetchCommitList();
+                if (response && response.length > 0) {
+                    dispatch(setSelectedCommit(response[0]));
+                }
+            }
+        };
+        fetchCommits();
+    }, [selectedRepo]);
+
+    const dispatch = useDispatch();
+
 
     const handleNewRepoChange = (repoName: string) => {
         dispatch(setSelectedCommit(null));
+        dispatch(setCommits([]));
         const selectedRepo = repoList.find(repo => repo.name === repoName);
-        
+        dispatch(setSelectedRepo(selectedRepo));
     }
+
     const handleNewCommitChange = async (commitSha: string) => {
         const selectedCommit = commitList.find(commit => commit.sha === commitSha);
         dispatch(setSelectedCommit(selectedCommit));
-        const res = await fetchCommitOverview();
-        console.log(res);
     }
 
     
@@ -52,15 +59,14 @@ export const Sidebar = () => {
     <div className={styles.container}>
         <div className={styles.topbar}>
             <div className={styles.greeting}>
-                <h2>Hello, </h2>
-                <h2>{userName}</h2>
+                <h2>Hello, {userName}</h2>
             </div>
-            <button 
+            {/* <button 
             className={styles.hideBtn}
             onClick={handleHideClick}
             >
                 <ChevronLeftIcon fontSize='large'/>
-            </button>
+            </button> */}
         </div>
         <div className={styles.content}>
             <form>
@@ -91,10 +97,10 @@ export const Sidebar = () => {
                     ))}
                 </select>
             </form>
-            <div className={styles.fileTree}>
+            {/* <div className={styles.fileTree}>
                 <label htmlFor="commit-select">FileTree:</label>
                 <FileTree />
-            </div>
+            </div> */}
         </div>
     </div>
   );

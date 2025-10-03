@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '@/stores/store';
 import styles from './FileTree.module.css';
 
-const FileTree: React.FC = () => {
+export const FileTree: React.FC = () => {
   const fileStructure = useSelector((state: RootState) => state.repo.fileStructure);
 
   const buildTreeFromPaths = (paths: string[]): any => {
@@ -58,7 +58,14 @@ const FileTree: React.FC = () => {
   };
 
   if (!fileStructure) {
-    return <div>Loading file structure...</div>;
+    return (
+      <div className={styles.title}>
+        <h3>檔案樹</h3>
+        <div className={styles.container}>
+          載入中...
+        </div>
+      </div>
+    );
   }
 
   // 解析字串格式的檔案結構
@@ -67,11 +74,11 @@ const FileTree: React.FC = () => {
   const treeText = generateTreeText(treeStructure);
 
   return (
-    <div className={styles.container}>
-      {/* <h3>File Structure</h3> */}
-      <pre className={styles.treeText}>{treeText}</pre>
+    <div className={styles.title}>
+      <h3>檔案樹</h3>
+      <div className={styles.container}>
+        <pre className={styles.treeText}>{treeText}</pre>
+      </div>
     </div>
   );
 };
-
-export default FileTree;

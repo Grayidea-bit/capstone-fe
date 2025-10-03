@@ -42,7 +42,7 @@ export const GitHubLogin = () => {
                 localStorage.setItem('access_token', response.data.access_token); 
                 localStorage.setItem('username', response.data.user.login);
                 localStorage.setItem('avatar_url', response.data.user.avatar_url);
-                navigate("/selector", { replace: true });
+                navigate("/home", { replace: true });
               }
             }).catch((error) => {
               console.error("Error during login:", error);
