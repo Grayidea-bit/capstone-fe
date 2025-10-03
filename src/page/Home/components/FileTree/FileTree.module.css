@@ -10,7 +10,7 @@
 
 .container {
   width: 100%;
-  background: rgb(78, 78, 78);
+  /* background: rgb(78, 78, 78); */
   border-radius: 7px;
   border: 2px solid var(--border-section);
   color: #d4d4d4;

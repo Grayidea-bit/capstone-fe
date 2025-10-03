@@ -10,7 +10,6 @@ import { fetchRepoList } from '@/utils/repoAPI';
 
 export const Sidebar = () => {
     const userName = localStorage.getItem('username');
-    const components = useSelector((state: RootState) => state.components);
     const repoList = useSelector((state: RootState) => state.repo.repos || []);
     const selectedRepo = useSelector((state: RootState) => state.repo.selectedRepo);
     const selectedCommit = useSelector((state: RootState) => state.repo.selectedCommit);
