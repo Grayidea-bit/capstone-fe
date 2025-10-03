@@ -1,9 +1,16 @@
 .container {
     height: fit-content;
-    /* flex: 4; */
-    /* overflow: auto; */
+    width: 45%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #dddddd;
+     
 }
 
 .codeArea {
-    /* top: 0; */
+    border: 2px solid var(--border-section);
+    border-radius: 7px;
+    padding: 1rem;
 }

@@ -1,11 +1,9 @@
 .summary {
-    width: 45%;
+    max-width: 45%;
     height: 100%;
     padding: 1rem;
     flex: 1;
-    overflow-y: auto;
-    scrollbar-width: none;
-    overflow-x: hidden;
+    overflow-x: auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -15,7 +13,7 @@
 
 .textarea {
     width: 100%;
-    padding: 1rem;
+    padding: 2rem;
 
     // background: rgb(78, 78, 78);
     border: 2px solid var(--border-section);

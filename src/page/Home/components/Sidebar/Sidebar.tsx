@@ -3,7 +3,7 @@ import { fetchCommitList, fetchCommitOverview } from '@/utils/commitAPI';
 
 import styles from './Sidebar.module.scss';
 import type { RootState } from '@/stores/store';
-import { setCommits, setFileStructure, setOverview, setSelectedCommit, setSelectedRepo } from '@/stores/slice/repoSlice';
+import { setCommitOverview, setCommits, setDiff, setFileStructure, setOverview, setSelectedCommit, setSelectedRepo } from '@/stores/slice/repoSlice';
 import { useEffect } from 'react';
 import { fetchRepoList } from '@/utils/repoAPI';
 
@@ -51,6 +51,8 @@ export const Sidebar = () => {
     }
 
     const handleNewCommitChange = async (commitSha: string) => {
+        dispatch(setCommitOverview(undefined));
+        dispatch(setDiff(undefined));
         const selectedCommit = commitList.find(commit => commit.sha === commitSha);
         dispatch(setSelectedCommit(selectedCommit));
     }

@@ -1,8 +1,6 @@
 .container {
     box-sizing: border-box;
     width: 100%;
-    display: grid;
-    grid-column: auto;
     overflow-x: hidden;
     gap: 1rem;
     animation: fade-in 0.5s ease-in-out
