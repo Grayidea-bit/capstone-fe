@@ -44,7 +44,12 @@ const mockMessages: message[] = [
 ];
 
 const initialState: chatStatus = {
-    messages: mockMessages,
+    // messages: mockMessages,
+    messages: [{
+        identity: 'assistant',
+        content: '您好！我是您的 AI 助手，有什麼我可以幫助您的嗎？',
+        timestamp: new Date().toLocaleString()
+    }],
     isLoading: false,
 };
 

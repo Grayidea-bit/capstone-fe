@@ -1,24 +1,39 @@
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from "@/stores/store";
-import styles from "./Chat.module.css";
-import { useState } from "react";
-import { IconButton, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { IconButton } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
+import Circle from '@mui/icons-material/Circle';
 import ReactMarkdown from "react-markdown";
+
+import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { addMessage } from "@/stores/slice/chatSlice";
+import type { RootState } from "@/stores/store";
+
+import styles from "./Chat.module.css";
+import { sendMessage } from "@/utils/chatAPI";
 
 
 export const Chat = () => {
-    // const [shouldRenderContent, setShouldRenderContent] = useState(false);
-    const [alignment, setAlignment] = useState<"chat" | "summary">("summary");
+    const [isWaitingResponse, setIsWaitingResponse] = useState(false);
     const chat = useSelector((state: RootState) => state.chat);
-    const overview = useSelector((state: RootState) => state.repo.overview || "載入中...");
-    const commitOverview = useSelector((state: RootState) => state.repo.commitOverview || "載入中...");
+    const textRef = useRef<HTMLTextAreaElement>(null);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const selectRef = useRef<HTMLSelectElement>(null);
+    const dispatch = useDispatch();
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [isWaitingResponse]);
 
     const createMessages = () => {
         return (
             <div className={styles.blockField}>
-                {chat.messages.map((msg) => (
-                    <div key={msg.timestamp} className={`${styles.message} ${styles[`${msg.identity}`]}`}>
+                {chat.messages.map((msg, index) => (
+                    <div key={index} className={`${styles.message} ${styles[`${msg.identity}`]}`}>
                         <span className={styles.identity}>{msg.identity}</span>
                         <span className={styles.content}>
                             <ReactMarkdown >{msg.content}</ReactMarkdown>
@@ -26,67 +41,62 @@ export const Chat = () => {
                         <span className={styles.timestamp}>{msg.timestamp}</span>
                     </div>
             ))}
+                <div ref={messagesEndRef} />    
             </div>
         );
     }
 
-    const renderMainBlock = () => {
-        if (alignment === "chat") {
-            return createMessages();
-        }
+    const newMessage = async () => {
+        if(textRef.current?.value.trim() === '') return;
 
-        return (
-            <div className={styles.summary}>
-                <h3>專案概述</h3>
-                <div className={styles.textarea}>
-                    <ReactMarkdown >{overview}</ReactMarkdown>
-                </div>
-                <h3>commit概述</h3>
-                <div className={styles.textarea}>
-                    <ReactMarkdown >{commitOverview}</ReactMarkdown>
-                </div>
-            </div>
-        );
+        setIsWaitingResponse(true);
+        const response = await sendMessage(textRef.current!.value, selectRef.current!.value);
+        // await new Promise((resolve) => setTimeout(resolve, 2000));
+        if (textRef.current) {
+            dispatch(addMessage({
+                identity: 'user',
+                content: textRef.current.value,
+                timestamp: new Date().toLocaleString()
+            }));
+            dispatch(addMessage({
+                identity: 'assistant',
+                content: response || "系統无回應，請稍後再試。",
+                timestamp: new Date().toLocaleString()
+            }));
+            // console.log(chat.messages);
+            textRef.current.value = ''; 
+        }
+        setIsWaitingResponse(false);
     }
 
     const renderTextField = () => {
-        if(alignment === 'summary') {
-            return null;
-        }
 
         return (
             <div className={styles.textField}>
-                <textarea placeholder="Type your message here..." />
-                <IconButton>
-                    <SendIcon />
-                </IconButton>
+                <textarea ref={textRef} placeholder="想問什麼？" />
+                <select ref={selectRef} defaultValue="repository">
+                    <option value="repository">問repo</option>
+                    <option value="commit">問commit</option>
+                    <option value="what-if">問如果</option>
+                </select>
+                {isWaitingResponse ? (
+                    <div className={styles.loadingContainer}>
+                        <Circle className={`${styles.loadingIndicator} ${styles.dot1}`} />
+                        <Circle className={`${styles.loadingIndicator} ${styles.dot2}`} />
+                        <Circle className={`${styles.loadingIndicator} ${styles.dot3}`} />
+                    </div>
+                ) : (
+                    <IconButton onClick={newMessage}>
+                        <SendIcon />
+                    </IconButton>
+                )}
             </div>
         );
-    }
-
-
-
-    const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-        setAlignment(newAlignment as "chat" | "summary");
     }
 
   return (
     <div className={styles.container}>
-        <div className={styles.topbar}>
-            <ToggleButtonGroup
-                color="primary"
-                value={alignment}
-                exclusive
-                onChange={handleChange}
-                size="large"
-            >
-                <ToggleButton value="summary">總結</ToggleButton>
-                <ToggleButton value="chat">對話</ToggleButton>
-            </ToggleButtonGroup>        
-        </div>
-      <div className={styles.blockField}>
-        {renderMainBlock()}
-      </div>
+        {createMessages()}
       {renderTextField()}   
     </div>
   );
