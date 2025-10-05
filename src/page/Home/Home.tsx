@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/stores/store";
 import styles from "./Home.module.scss";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -14,6 +14,8 @@ const Home = () => {
   const page = useSelector((state: RootState) => state.progress.page);
   const navigate = useNavigate();
 
+  const [isNavigating, setIsNavigating] = useState(false);
+
   useEffect(() => {
     if (!user.access_token) {
       
@@ -21,7 +23,17 @@ const Home = () => {
     }
   }, [user.access_token]);
 
+  useEffect(() => {
+    setIsNavigating(true);
+    setTimeout(() => {
+      setIsNavigating(false);
+    }, 1000); // 假設導航動畫持續1000毫秒
+  }, [page]);
+
   const pageLogic = () => {
+
+    // if (isNavigating) new Promise(resolve => setTimeout(resolve, 500));
+
     switch (page) {
       case 'fileTreeAndOverview':
         return <Repo />;
@@ -40,7 +52,10 @@ const Home = () => {
     <div className={`${styles.container}`}>
       <Sidebar />
       <Navigator />
-      {pageLogic()}
+      <div className={`${styles.mask} ${isNavigating ? styles.animating : ''}`} />
+      <div className={`${styles.content} ${isNavigating ? styles.animating : ''}`}>
+        {pageLogic()}
+      </div>
     </div>
   );
 }
