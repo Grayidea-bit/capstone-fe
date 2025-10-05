@@ -1,10 +1,11 @@
-import { Sidebar, CodeField, Chat, Navigator } from "./components";
+import { Sidebar, Chat, Navigator } from "./components";
+import { Repo, Commit, TechDebt } from "./SubPage";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/stores/store";
 import styles from "./Home.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { Repo, Commit } from "./SubPage";
+
 
 
 
@@ -12,7 +13,7 @@ const Home = () => {
   const user = useSelector((state: RootState) => state.user);
   const page = useSelector((state: RootState) => state.progress.page);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (!user.access_token) {
       
@@ -29,7 +30,7 @@ const Home = () => {
       case 'aiTalk':
         return <Chat />;
       case 'techDebt':
-        return <CodeField />;
+        return <TechDebt />;
       default:
         return null;
     }
