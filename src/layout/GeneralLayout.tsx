@@ -12,7 +12,7 @@ const GeneralLayout = () => {
   dispatch(setIsLogin(isLogin));
 
   return (
-    <div className={styles.container}>
+    <div className={` ${styles.container} ${!isLogin ? styles.bg : ''}`}>
         <Outlet />  
     </div>
   );
