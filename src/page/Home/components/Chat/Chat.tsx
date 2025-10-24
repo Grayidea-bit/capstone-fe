@@ -15,6 +15,7 @@ import { sendMessage } from "@/utils/chatAPI";
 
 export const Chat = () => {
     const [isWaitingResponse, setIsWaitingResponse] = useState(false);
+    const selectedCommit = useSelector((state: RootState) => state.repo.selectedCommit);
     const chat = useSelector((state: RootState) => state.chat);
     const textRef = useRef<HTMLTextAreaElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -76,8 +77,7 @@ export const Chat = () => {
                 <textarea ref={textRef} placeholder="想問什麼？" />
                 <select ref={selectRef} defaultValue="repository">
                     <option value="repository">問repo</option>
-                    <option value="commit">問commit</option>
-                    <option value="what-if">問如果</option>
+                    {selectedCommit?.sha!=='無' && <option value="commit">問commit</option>}
                 </select>
                 {isWaitingResponse ? (
                     <div className={styles.loadingContainer}>

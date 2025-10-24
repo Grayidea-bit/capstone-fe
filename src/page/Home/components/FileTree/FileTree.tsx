@@ -75,7 +75,7 @@ export const FileTree: React.FC = () => {
 
   return (
     <div className={styles.title}>
-      <h3>檔案樹</h3>
+      {/* <h3>檔案樹</h3> */}
       <div className={styles.container}>
         <pre className={styles.treeText}>{treeText}</pre>
       </div>

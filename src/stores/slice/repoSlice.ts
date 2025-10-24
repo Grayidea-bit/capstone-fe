@@ -10,6 +10,7 @@ export interface Debt {
         top_modules: Array<[string, number]>;
     }
 }
+
 export interface repoStatus {
     repos?: Repo[];
     selectedRepo?: Repo;

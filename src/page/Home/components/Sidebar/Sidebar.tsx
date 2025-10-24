@@ -6,6 +6,7 @@ import type { RootState } from '@/stores/store';
 import { setCommitOverview, setCommits, setDiff, setFileStructure, setOverview, setSelectedCommit, setSelectedRepo } from '@/stores/slice/repoSlice';
 import { useEffect } from 'react';
 import { fetchRepoList } from '@/utils/repoAPI';
+import { setPage } from '@/stores/slice/progressSlice';
 
 
 export const Sidebar = () => {
@@ -14,6 +15,8 @@ export const Sidebar = () => {
     const selectedRepo = useSelector((state: RootState) => state.repo.selectedRepo);
     const selectedCommit = useSelector((state: RootState) => state.repo.selectedCommit);
     const commitList = useSelector((state: RootState) => state.repo.commits || []);
+    const page = useSelector((state: RootState) => state.progress.page);
+    
 
 
     useEffect(() => {
@@ -51,6 +54,9 @@ export const Sidebar = () => {
     }
 
     const handleNewCommitChange = async (commitSha: string) => {
+        if (commitSha === '無' && page === 'diffViewAndCommitSummary') {
+            dispatch(setPage('fileTreeAndOverview'));
+        }
         dispatch(setCommitOverview(undefined));
         dispatch(setDiff(undefined));
         const selectedCommit = commitList.find(commit => commit.sha === commitSha);

@@ -34,6 +34,14 @@
     border: 2px solid var(--text-primary);
 }
 
+.item.hidden {
+    color: gray;
+    &:hover {
+        cursor: not-allowed;
+        animation: none;
+    }
+}
+
 @keyframes hover {
     0% {
         transform: scale(1);

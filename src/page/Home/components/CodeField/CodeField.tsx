@@ -31,7 +31,7 @@ export const CodeField = () => {
 
   return (
     <div className={styles.container}>
-      <h3>Code Diff一覽</h3>
+      {/* <h3>Code Diff一覽</h3> */}
       <div className={styles.codeArea}>
         <div
           className={styles.diffContainer}

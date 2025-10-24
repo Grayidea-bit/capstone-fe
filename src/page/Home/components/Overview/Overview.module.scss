@@ -1,6 +1,5 @@
 .summary {
-    max-width: 45%;
-    height: 100%;
+    // height: 50%;
     padding: 1rem;
     flex: 1;
     overflow-x: auto;
@@ -12,67 +11,45 @@
 }
 
 .textarea {
-    width: 100%;
-    padding: 2rem;
 
-    // background: rgb(78, 78, 78);
-    border: 2px solid var(--border-section);
-    border-radius: 7px;
-    overflow-y: auto;
-    scrollbar-width: none;
-    white-space: pre-wrap;
+    h1, h2, h3, h4 {
+        margin-top: 1rem;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 1rem;
+    }
 
+    ul {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
 
-    :global {
-        h1, h2, h3, h4, h5, h6 {
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
+        ul {
+            margin-bottom: 0;
+            margin-left: 1rem;
 
-        p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        ul, ol {
-            margin-left: 2rem;
-            margin-bottom: 1rem;
-            padding-left: 1rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        code {
-            background: darkgray;
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-family: monospace;
-            color: black;
-        }
-
-        pre {
-            background: darkgray;
-            padding: 1rem;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin-bottom: 1rem;
-
-            code {
-                background: none;
-                padding: 0;
-                border-radius: 0;
-                font-family: monospace;
+            li {
+                margin-bottom: 0.25rem;
             }
         }
+    }
 
-        blockquote {
-            border-left: 4px solid #ddd;
-            padding-left: 1rem;
-            margin-left: 0;
-            color: #666;
-        }
+    li {
+        margin-bottom: 0.5rem;
+    }
+
+    code {
+        background: #2b2b33;
+        padding: 0.2rem 0.4rem;
+        border-radius: 5px;
+    }
+
+    pre {
+        margin-top: 0.75rem;
+        margin-bottom: 1rem;
+        background: #2b2b33;
+        padding: 1rem;
+        border-radius: 7px;
+        width: 100%;
+        overflow-x: auto;
     }
 }

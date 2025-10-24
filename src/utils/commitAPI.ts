@@ -14,8 +14,11 @@ export const fetchCommitList = async () => {
         sha: commit.sha,
         name: commit.name
     }));
-    store.dispatch(setCommits(commits));
-    return commits;
+
+    const emptyOption = [{sha: '無', name: '請選擇 commit'}];
+    const newList = [...emptyOption, ...commits];
+    store.dispatch(setCommits(newList));
+    return newList;
 }
 
 
