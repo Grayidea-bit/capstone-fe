@@ -24,6 +24,15 @@
     }
 }
 
+.control {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
 .mask {
     display: none;
     pointer-events: none;

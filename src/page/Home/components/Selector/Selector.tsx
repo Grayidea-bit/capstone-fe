@@ -1,16 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCommitList, fetchCommitOverview } from '@/utils/commitAPI';
+import { fetchCommitList } from '@/utils/commitAPI';
 
-import styles from './Sidebar.module.scss';
+import styles from './Selector.module.scss';
 import type { RootState } from '@/stores/store';
 import { setCommitOverview, setCommits, setDiff, setFileStructure, setOverview, setSelectedCommit, setSelectedRepo } from '@/stores/slice/repoSlice';
 import { useEffect } from 'react';
 import { fetchRepoList } from '@/utils/repoAPI';
 import { setPage } from '@/stores/slice/progressSlice';
-import { setChatOpen } from '@/stores/slice/componentsSlice';
 
 
-export const Sidebar = () => {
+export const Selector = () => {
     const userName = localStorage.getItem('username');
     const repoList = useSelector((state: RootState) => state.repo.repos || []);
     const selectedRepo = useSelector((state: RootState) => state.repo.selectedRepo);
@@ -67,23 +66,9 @@ export const Sidebar = () => {
     
   return (
     <div className={styles.container}>
-        <div className={styles.topbar}>
-            <div className={styles.greeting}>
-                <h2>Hello, {userName}</h2>
-            </div>
-            <div className={styles.chatBtn} onClick={() => dispatch(setChatOpen(null))}>
-                <h4>AI</h4>
-            </div>
-            {/* <button 
-            className={styles.hideBtn}
-            onClick={handleHideClick}
-            >
-                <ChevronLeftIcon fontSize='large'/>
-            </button> */}
-        </div>
         <div className={styles.content}>
             <form>
-                <label htmlFor="repo-select">Repository:</label>
+                <label htmlFor="repo-select">Repository 選擇</label>
                 <select 
                     id="repo-select"
                     value={selectedRepo?.name || ""}
@@ -97,7 +82,7 @@ export const Sidebar = () => {
                 </select>
             </form>
             <form>
-                <label htmlFor="commit-select">Commit:</label>
+                <label htmlFor="commit-select">Commit 選擇</label>
                 <select 
                     id="commit-select" 
                     value={selectedCommit?.sha || ""}
@@ -110,10 +95,6 @@ export const Sidebar = () => {
                     ))}
                 </select>
             </form>
-            {/* <div className={styles.fileTree}>
-                <label htmlFor="commit-select">FileTree:</label>
-                <FileTree />
-            </div> */}
         </div>
     </div>
   );

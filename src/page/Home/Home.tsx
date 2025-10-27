@@ -1,4 +1,4 @@
-import { Sidebar, Chat, Navigator } from "./components";
+import { Selector, Chat, Navigator, Header } from "./components";
 import { Repo, Commit, TechDebt } from "./SubPage";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/stores/store";
@@ -50,8 +50,11 @@ const Home = () => {
 
   return (
     <div className={`${styles.container}`}>
-      <Sidebar />
-      <Navigator />
+      <Header />
+      <div className={styles.control}>
+        <Selector />
+        <Navigator />
+      </div>
       <div className={`${styles.mask} ${isNavigating ? styles.animating : ''}`} />
       <div className={`${styles.content} ${isNavigating ? styles.animating : ''}`}>
         {pageLogic()}

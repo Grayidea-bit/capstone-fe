@@ -11,22 +11,28 @@ export const Navigator = () => {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.item} ${page === 'fileTreeAndOverview' ? styles.selected : ''}`} onClick={() => dispatch(setPage('fileTreeAndOverview'))}>檔案樹與總覽</div>
-      <div className={`${styles.item} ${page === 'techDebt' ? styles.selected : ''}`} onClick={() => dispatch(setPage('techDebt'))}>技術債</div>
-      <div 
-        className={`
-          ${styles.item} 
-          ${page === 'diffViewAndCommitSummary' ? styles.selected : ''} 
-          ${selectedCommit?.sha === "無" ? styles.hidden : ''}
-        `} 
-        onClick={() => { 
-          if (selectedCommit?.sha !== "無") 
-          dispatch(setPage('diffViewAndCommitSummary')) 
-        }}
-        >
-          Commit Diff
+      <label>Repository 功能</label>
+      <div className={styles.row}>
+        <div className={`${styles.item} ${page === 'fileTreeAndOverview' ? styles.selected : ''}`} onClick={() => dispatch(setPage('fileTreeAndOverview'))}>檔案樹與總覽</div>
+        <div className={`${styles.item} ${page === 'techDebt' ? styles.selected : ''}`} onClick={() => dispatch(setPage('techDebt'))}>技術債</div>
       </div>
-      <div className={`${styles.item} ${page === 'aiTalk' ? styles.selected : ''}`} onClick={() => dispatch(setPage('aiTalk'))}>AI對話</div>
+      <label>Commit 功能</label>
+      <div className={styles.row}>
+        <div 
+          className={`
+            ${styles.item} 
+            ${page === 'diffViewAndCommitSummary' ? styles.selected : ''} 
+            ${selectedCommit?.sha === "無" ? styles.hidden : ''}
+          `} 
+          onClick={() => { 
+            if (selectedCommit?.sha !== "無") 
+            dispatch(setPage('diffViewAndCommitSummary')) 
+          }}
+          >
+            Commit Diff
+        </div>
+      </div>
+      {/* <div className={`${styles.item} ${page === 'aiTalk' ? styles.selected : ''}`} onClick={() => dispatch(setPage('aiTalk'))}>AI對話</div> */}
     </div>
   );
 };
