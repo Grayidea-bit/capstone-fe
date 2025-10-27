@@ -1,0 +1,25 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 0fr;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.main.open {
+  grid-template-columns: 1fr 30dvw;
+}
+
+.app {
+    transition: transform 300ms ease-in-out;
+}
+
+.chat {
+  background: white;
+  transform: translateX(100%);
+  transition: transform 300ms ease-in-out;
+}
+
+.chat.open {
+  transform: translateX(0);
+}

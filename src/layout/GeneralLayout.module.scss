@@ -1,8 +1,11 @@
 .container {
     box-sizing: border-box;
     position: relative;
-    width: 70%;
-    left: 15%;
+    // width: 70%;
+    // left: 15%;
+    max-width: 70dvw;
+    margin-left: auto;
+    margin-right: auto; 
     overflow-x: hidden;
     gap: 0;
     background: #2f3648;

@@ -7,7 +7,7 @@ import { fetchCommitOverview } from "@/utils/commitAPI";
 
 export const Commit = () => {
     const selectedCommit = useSelector((state: RootState) => state.repo.selectedCommit);
-    const [expandFileTree, setExpandFileTree] = useState(true);
+    const [expandFileTree, setExpandFileTree] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {

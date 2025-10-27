@@ -23,7 +23,7 @@ export const GitHubLogin = () => {
     const fetchData = async () => {
       const query = new URLSearchParams(location.search);
       const code = query.get('code');
-      console.log("Authorization code:", code);
+      // console.log("Authorization code:", code);
       if(code) {
           if(processingCodeRef.current !== code) processingCodeRef.current = code;
           await axios.get(`http://localhost:8000/login/?code=${code}`, {
@@ -31,7 +31,7 @@ export const GitHubLogin = () => {
             })
             .then((response) => {
               if (response.data) {
-                console.log(response.data);
+                // console.log(response.data);
                 dispatch(setIsLogin(true));
                 dispatch(setProgress('select'));
                 dispatch(setAvatarURL(response.data.user.avatar_url));

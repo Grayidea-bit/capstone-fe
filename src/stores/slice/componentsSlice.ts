@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface componentsStatus {
-  isSideBarExpanded: boolean;
+  isChatOpen: boolean;
 }
 
 const initialState: componentsStatus = {
-    isSideBarExpanded: true,
+    isChatOpen: false,
 };
 
 const componentsSlice = createSlice({
     name: 'components',
     initialState,
     reducers: {
-        setSideBarExpanded: (state, action) => {
-            state.isSideBarExpanded = action.payload;
+        setChatOpen: (state, action) => {
+            state.isChatOpen = !state.isChatOpen;
         }
     }
 })
-export const { setSideBarExpanded } = componentsSlice.actions;
+export const { setChatOpen } = componentsSlice.actions;
 export default componentsSlice.reducer;

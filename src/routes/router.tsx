@@ -1,6 +1,6 @@
-import { lazy } from "react";
+import { lazy, memo } from "react";
 import GeneralLayout from "@/layout/GeneralLayout";
-import type { RouteObject } from "react-router-dom";
+import { useRoutes, type RouteObject } from "react-router-dom";
 
 const Login = lazy(() => import('@/page/Login/Login'));
 const Home = lazy(() => import('@/page/Home/Home'));
@@ -23,3 +23,7 @@ export const routes: RouteObject[] = [
     }, 
 
 ];
+
+export const AppRouter = memo(() => {
+  return useRoutes(routes);
+});

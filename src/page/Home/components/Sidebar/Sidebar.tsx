@@ -7,6 +7,7 @@ import { setCommitOverview, setCommits, setDiff, setFileStructure, setOverview, 
 import { useEffect } from 'react';
 import { fetchRepoList } from '@/utils/repoAPI';
 import { setPage } from '@/stores/slice/progressSlice';
+import { setChatOpen } from '@/stores/slice/componentsSlice';
 
 
 export const Sidebar = () => {
@@ -69,6 +70,9 @@ export const Sidebar = () => {
         <div className={styles.topbar}>
             <div className={styles.greeting}>
                 <h2>Hello, {userName}</h2>
+            </div>
+            <div className={styles.chatBtn} onClick={() => dispatch(setChatOpen(null))}>
+                <h4>AI</h4>
             </div>
             {/* <button 
             className={styles.hideBtn}
