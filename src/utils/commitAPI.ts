@@ -8,8 +8,9 @@ export const fetchCommitList = async () => {
     const selectedRepo = state.repo.selectedRepo;
     const repo = selectedRepo?.name;
     const owner = selectedRepo?.owner;
+    const branch = state.repo.selectedBranch?.name;
 
-    const response = await axios.get(`http://localhost:8000/repo_commit/repos/${owner}/${repo}/?access_token=${localStorage.getItem('access_token')}`)
+    const response = await axios.get(`http://localhost:8000/repo_commit/repos/${owner}/${repo}/${branch}/?access_token=${localStorage.getItem('access_token')}`)
     const commits = response.data.commits.map((commit: any) => ({
         sha: commit.sha,
         name: commit.name
@@ -27,6 +28,7 @@ export const fetchCommitOverview = async () => {
     const selectedRepo = state.repo.selectedRepo;
     const repo = selectedRepo?.name;
     const owner = selectedRepo?.owner;
+    const selectedBranch = state.repo.selectedBranch?.name;
     const selectedCommit = state.repo.selectedCommit;
     const sha = selectedCommit?.sha;
 
@@ -36,7 +38,7 @@ export const fetchCommitOverview = async () => {
 
     try {
         const response = await axios.post(
-            `http://localhost:8000/diff/repos/${owner}/${repo}/commits/${sha}?access_token=${localStorage.getItem('access_token')}`
+            `http://localhost:8000/diff/repos/${owner}/${repo}/${selectedBranch}/commits/${sha}?access_token=${localStorage.getItem('access_token')}`
         );
 
         if (response.status !== 200) {

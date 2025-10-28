@@ -3,9 +3,9 @@ import { fetchCommitList } from '@/utils/commitAPI';
 
 import styles from './Selector.module.scss';
 import type { RootState } from '@/stores/store';
-import { setCommitOverview, setCommits, setDiff, setFileStructure, setOverview, setSelectedCommit, setSelectedRepo } from '@/stores/slice/repoSlice';
+import { setCommitOverview, setCommits, setDiff, setFileStructure, setOverview, setSelectedBranch, setSelectedCommit, setSelectedRepo } from '@/stores/slice/repoSlice';
 import { useEffect } from 'react';
-import { fetchRepoList } from '@/utils/repoAPI';
+import { fetchBranchList, fetchRepoList } from '@/utils/repoAPI';
 import { setPage } from '@/stores/slice/progressSlice';
 
 
@@ -14,7 +14,9 @@ export const Selector = () => {
     const repoList = useSelector((state: RootState) => state.repo.repos || []);
     const selectedRepo = useSelector((state: RootState) => state.repo.selectedRepo);
     const selectedCommit = useSelector((state: RootState) => state.repo.selectedCommit);
+    const selectedBranch = useSelector((state: RootState) => state.repo.selectedBranch);
     const commitList = useSelector((state: RootState) => state.repo.commits || []);
+    const branchList = useSelector((state: RootState) => state.repo.branches || []);
     const page = useSelector((state: RootState) => state.progress.page);
     
 
@@ -32,6 +34,18 @@ export const Selector = () => {
     useEffect(() => {
         const fetchCommits = async () => {
             if (selectedRepo) {
+                const response = await fetchBranchList();
+                if (response && response.length > 0) {
+                    dispatch(setSelectedBranch(response[0]));
+                }
+            }
+        };
+        fetchCommits();
+    }, [selectedRepo]);
+
+    useEffect(() => {
+        const fetchCommits = async () => {
+            if (selectedBranch) {
                 const response = await fetchCommitList();
                 if (response && response.length > 0) {
                     dispatch(setSelectedCommit(response[0]));
@@ -39,7 +53,7 @@ export const Selector = () => {
             }
         };
         fetchCommits();
-    }, [selectedRepo]);
+    }, [selectedBranch]);
 
     const dispatch = useDispatch();
 
@@ -51,6 +65,16 @@ export const Selector = () => {
         dispatch(setOverview(undefined));
         const selectedRepo = repoList.find(repo => repo.name === repoName);
         dispatch(setSelectedRepo(selectedRepo));
+    }
+
+    const handleNewBranchChange = async (commitSha: string) => {
+        if (commitSha === '無' && page === 'diffViewAndCommitSummary') {
+            dispatch(setPage('fileTreeAndOverview'));
+        }
+        dispatch(setCommitOverview(undefined));
+        dispatch(setDiff(undefined));
+        const selectedCommit = commitList.find(commit => commit.sha === commitSha);
+        dispatch(setSelectedCommit(selectedCommit));
     }
 
     const handleNewCommitChange = async (commitSha: string) => {
@@ -75,6 +99,20 @@ export const Selector = () => {
                     onChange={(e) => {handleNewRepoChange(e.target.value);}}
                 >
                     {repoList.map((value, index) => (
+                        <option key={index} value={value.name}>
+                            {value.name}
+                        </option>
+                    ))}
+                </select>
+            </form>
+            <form>
+                <label htmlFor="branch-select">Branch 選擇</label>
+                <select 
+                    id="branch-select" 
+                    value={selectedBranch?.name || ""}
+                    onChange={(e) => {handleNewBranchChange(e.target.value);}}
+                >
+                    {branchList.map((value, index) => (
                         <option key={index} value={value.name}>
                             {value.name}
                         </option>

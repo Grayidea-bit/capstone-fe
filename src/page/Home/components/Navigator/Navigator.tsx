@@ -16,6 +16,10 @@ export const Navigator = () => {
         <div className={`${styles.item} ${page === 'fileTreeAndOverview' ? styles.selected : ''}`} onClick={() => dispatch(setPage('fileTreeAndOverview'))}>檔案樹與總覽</div>
         <div className={`${styles.item} ${page === 'techDebt' ? styles.selected : ''}`} onClick={() => dispatch(setPage('techDebt'))}>技術債</div>
       </div>
+      <label>其他功能</label>
+      <div className={styles.row}>
+        <div className={`${styles.item} ${page === 'contribute' ? styles.selected : ''}`} onClick={() => dispatch(setPage('contribute'))}>貢獻</div>
+      </div>
       <label>Commit 功能</label>
       <div className={styles.row}>
         <div 

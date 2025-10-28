@@ -1,5 +1,5 @@
 import { Selector, Chat, Navigator, Header } from "./components";
-import { Repo, Commit, TechDebt } from "./SubPage";
+import { Repo, Commit, TechDebt, Contribute } from "./SubPage";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/stores/store";
 import styles from "./Home.module.scss";
@@ -43,6 +43,8 @@ const Home = () => {
         return <Chat />;
       case 'techDebt':
         return <TechDebt />;
+      case 'contribute':
+        return <Contribute />;
       default:
         return null;
     }

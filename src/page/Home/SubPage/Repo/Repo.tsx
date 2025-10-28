@@ -7,17 +7,18 @@ import type { RootState } from "@/stores/store";
 
 export const Repo = () => {
     const selectedRepo = useSelector((state: RootState) => state.repo.selectedRepo);
+    const selectedBranch = useSelector((state: RootState) => state.repo.selectedBranch);
 
     const [expandFileTree, setExpandFileTree] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            if (selectedRepo) {
+            if (selectedRepo&&selectedBranch) {
                 await fetchRepoOverview();
             }
         };
         fetchData();
-    }, [selectedRepo]); // 監聽 selectedRepo 的變化
+    }, [selectedRepo, selectedBranch]); // 監聽 selectedRepo 的變化
     
     return (
         <div className={`${styles.container} ${expandFileTree ? styles.expand : ""}`}>

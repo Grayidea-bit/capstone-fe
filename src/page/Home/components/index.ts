@@ -7,3 +7,4 @@ export { Navigator } from "./Navigator/Navigator";
 export { FileTree } from "./FileTree/FileTree";
 export { Overview } from "./Overview/Overview";
 export { Header };
+export { Chart } from "./Chart/Chart";
