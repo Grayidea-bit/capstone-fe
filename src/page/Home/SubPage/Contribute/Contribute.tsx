@@ -13,21 +13,19 @@ export const Contribute = () => {
 
    useEffect(() => {
        const fetchData = async () => {
+            setChartList([]);
            const data = await contribute();
             const cleanedData = Object.entries(data).map(([name, value]) => ({
                 name,
                 value: String(value ?? '')
             }));
             setChartList(cleanedData);
-           console.log("Fetched contribute data:", cleanedData);
        };
        fetchData();
    }, [selectedRepo]);
 
    return (
     <div>
-        <h2>貢獻頁面</h2>
-        <p>正在取得貢獻資料...</p>
         <Chart itemList={chartList} />
     </div>
    );

@@ -5,6 +5,8 @@
     flex-direction: column;
     width: 100%;
     height: 100dvh;
+    background: var(--bg-primary);
+    border-left: 2px solid var(--border-section);
 }
 
 .chatArea {
@@ -32,4 +34,119 @@
         overflow: hidden;
         // font-size: 1.25rem;
     }
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.message.user {
+    align-items: flex-end;
+    justify-content: flex-end;
+    /* background: white; */
+    margin-right: 1rem;
+}
+
+.identity {
+    font-weight: bold;
+    text-transform: capitalize;
+    color: white;
+}
+
+.timestamp {
+    font-size: 0.7rem;
+    color: white;
+}
+
+.message.assistant {
+    align-items: flex-start;
+    justify-content: flex-start;
+    /* background: var(--bg-section); */
+    margin-left: 1rem;
+}
+
+.user .content {
+    max-width: 80%;
+    background: white;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
+}
+
+.assistant .content {
+    max-width: 80%;
+    background: white;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border-section);
+    border-radius: 0.7rem;
+}
+
+.textField {
+    width: 100%;
+    flex: 0 0 auto;
+    border-top: 2px solid var(--border-section);
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.textField textarea {
+    width: 80%;
+    height: 4rem;
+    padding: 0.5rem;
+    border: 2px solid var(--border-section);
+    border-radius: 7px;
+    background: gray;
+    color: var(--text-primary);
+    resize: none;
+    overflow: hidden;
+    font-size: 1.25rem;
+}
+
+.textField textarea::placeholder {
+    color: rgba(255, 255, 255, 0.424);
+}
+
+.textField button {
+    width: 3rem;
+    height: 3rem;
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border-section);
+    border-radius: 7px;
+    cursor: pointer;
+}
+.textField select {
+    padding: 1rem 2rem;
+
+    border: 2px solid var(--border-section);
+    border-radius: 7px;
+    background: gray;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.25rem;
+    appearance: none; /* 移除預設樣式 */
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 12px;
+    padding-right: 2.5rem;
+}
+
+.textField select:hover {
+    background-color: #666;
+}
+
+.textField select option {
+    background: #333;
+    color: white;
+    padding: 0.5rem;
+    
 }

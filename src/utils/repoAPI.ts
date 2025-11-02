@@ -24,7 +24,7 @@ export const fetchRepoOverview = async () => {
     const selectedRepo = state.repo.selectedRepo;
     const selectedBranch = state.repo.selectedBranch;
     try {
-        const response = await axios.get(`http://localhost:8000/overview/repos/${selectedRepo?.owner}/${selectedRepo?.name}/${selectedBranch?.name}/?access_token=${localStorage.getItem('access_token')}`);
+        const response = await axios.get(`http://localhost:8000/overview/repos/${selectedRepo?.owner}/${selectedRepo?.name}/?access_token=${localStorage.getItem('access_token')}`);
         // console.log(response.data);
         store.dispatch(setOverview(response.data.overview));
         store.dispatch(setFileStructure(response.data.file_structure));
@@ -44,7 +44,7 @@ export const fetchBranchList = async () => {
             name: branch,
         }));
         store.dispatch(setBranches(savedBranches));
-        console.log(savedBranches);
+        // console.log(savedBranches);
         return savedBranches;
     } catch (error) {
         console.error("Error fetching repo list:", error);

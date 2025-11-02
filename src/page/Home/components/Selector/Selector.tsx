@@ -67,14 +67,10 @@ export const Selector = () => {
         dispatch(setSelectedRepo(selectedRepo));
     }
 
-    const handleNewBranchChange = async (commitSha: string) => {
-        if (commitSha === '無' && page === 'diffViewAndCommitSummary') {
-            dispatch(setPage('fileTreeAndOverview'));
-        }
-        dispatch(setCommitOverview(undefined));
-        dispatch(setDiff(undefined));
-        const selectedCommit = commitList.find(commit => commit.sha === commitSha);
-        dispatch(setSelectedCommit(selectedCommit));
+    const handleNewBranchChange = async (branchName: string) => {
+        dispatch(setSelectedBranch(undefined));
+        const selectedBranch = branchList.find(branch => branch.name === branchName);
+        dispatch(setSelectedBranch(selectedBranch));
     }
 
     const handleNewCommitChange = async (commitSha: string) => {

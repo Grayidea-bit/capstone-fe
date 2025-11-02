@@ -38,7 +38,7 @@ const Chat = (props: ChatProps) => {
             <div className={styles.blockField}>
                 {chat.messages.map((msg, index) => (
                     <div key={index} className={`${styles.message} ${styles[`${msg.identity}`]}`}>
-                        <span className={styles.identity}>{msg.identity}</span>
+                        {/* <span className={styles.identity}>{msg.identity}</span> */}
                         <span className={styles.content}>
                             <ReactMarkdown >{msg.content}</ReactMarkdown>
                         </span>
@@ -66,7 +66,7 @@ const Chat = (props: ChatProps) => {
             <div className={styles.chatArea}>
                 {createMessages()}
             </div>
-            <div className={styles.textArea}>
+            <div className={styles.textField}>
                 <textarea ref={textRef} className={styles.textbox} placeholder="Type a message..." />
                 <select ref={selectRef} defaultValue="repository">
                     <option value="repository">問repo</option>
