@@ -17,12 +17,24 @@ export const Uml = () => {
     );
   }
 
-  const umlWithTransparentBg = umlCode.includes('skinparam')
+  const umlWithCustomStyles = umlCode.includes('skinparam')
     ? umlCode
-    : umlCode.replace('@startuml', '@startuml\nskinparam backgroundColor transparent');
+    : umlCode.replace('@startuml', `@startuml
+skinparam backgroundColor transparent
+skinparam classBackgroundColor #343a52
+skinparam classBorderColor #5c7bff
+skinparam ArrowColor #5c7bff
+skinparam ArrowThickness 2
+skinparam classAttributeFontColor #c9d3ee
+skinparam classFontColor #f5f7fb
+skinparam stereotypeFontColor #9aa3c7
+skinparam ArrowFontColor #ffffff
+skinparam ArrowFontSize 12
+skinparam nodesep 20
+skinparam ranksep 30`);
 
   // Encode the UML code and generate image URL
-  const encoded = plantumlEncoder.encode(umlWithTransparentBg);
+  const encoded = plantumlEncoder.encode(umlWithCustomStyles);
   const imageUrl = `https://www.plantuml.com/plantuml/svg/${encoded}`;
 
   return (
