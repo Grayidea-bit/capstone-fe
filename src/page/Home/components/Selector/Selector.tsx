@@ -18,6 +18,10 @@ export const Selector = () => {
     const commitList = useSelector((state: RootState) => state.repo.commits || []);
     const branchList = useSelector((state: RootState) => state.repo.branches || []);
     const page = useSelector((state: RootState) => state.progress.page);
+
+    const truncateText = (text: string, maxLength: number = 40) => {
+        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    };
     
 
 
@@ -124,7 +128,7 @@ export const Selector = () => {
                 >
                     {commitList.map((value, index) => (
                         <option key={index} value={value.sha}>
-                            {value.sha.substring(0, 7) + ": " + value.name}
+                            {truncateText(value.name)}
                         </option>
                     ))}
                 </select>
