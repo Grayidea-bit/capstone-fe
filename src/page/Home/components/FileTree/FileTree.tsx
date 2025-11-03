@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/stores/store';
-import styles from './FileTree.module.css';
+import styles from './FileTree.module.scss';
 
 export const FileTree: React.FC = () => {
   const fileStructure = useSelector((state: RootState) => state.repo.fileStructure);

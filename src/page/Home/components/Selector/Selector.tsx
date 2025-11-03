@@ -3,7 +3,7 @@ import { fetchCommitList } from '@/utils/commitAPI';
 
 import styles from './Selector.module.scss';
 import type { RootState } from '@/stores/store';
-import { setCommitOverview, setCommits, setDiff, setFileStructure, setOverview, setSelectedBranch, setSelectedCommit, setSelectedRepo } from '@/stores/slice/repoSlice';
+import { setCommitOverview, setCommits, setDiff, setFileStructure, setOverview, setSelectedBranch, setSelectedCommit, setSelectedRepo, setUmlCode } from '@/stores/slice/repoSlice';
 import { useEffect } from 'react';
 import { fetchBranchList, fetchRepoList } from '@/utils/repoAPI';
 import { setPage } from '@/stores/slice/progressSlice';
@@ -23,8 +23,6 @@ export const Selector = () => {
         return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     };
     
-
-
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetchRepoList();
@@ -67,6 +65,7 @@ export const Selector = () => {
         dispatch(setCommits([]));
         dispatch(setFileStructure(undefined));
         dispatch(setOverview(undefined));
+        dispatch(setUmlCode(undefined));
         const selectedRepo = repoList.find(repo => repo.name === repoName);
         dispatch(setSelectedRepo(selectedRepo));
     }

@@ -8,9 +8,11 @@ export const Uml = () => {
   // Add validation to prevent rendering with empty/undefined umlCode
   if (!umlCode || umlCode.trim().length === 0) {
     return (
-      <div>
+      <div className={styles.container}>
         <h3>UML</h3>
-        <p>載入中或無 UML 資料..</p>
+        <div className={styles.uml} >
+            <p>載入中或無 UML 資料..</p>
+        </div>
       </div>
     );
   }
@@ -26,7 +28,9 @@ export const Uml = () => {
   return (
     <div className={styles.container}>
       <h3>UML</h3>
-      <img src={imageUrl} alt="UML Diagram"/>
+      <div className={styles.uml} >
+        <img src={imageUrl} alt="UML Diagram"/>
+        </div>
     </div>
   );
 };
