@@ -8,3 +8,4 @@ export { FileTree } from "./FileTree/FileTree";
 export { Overview } from "./Overview/Overview";
 export { Header };
 export { Chart } from "./Chart/Chart";
+export { Uml } from "./Uml/Uml";

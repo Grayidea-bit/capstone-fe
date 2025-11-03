@@ -1,5 +1,5 @@
 import { store } from '@/stores/store';
-import { setBranches, setFileStructure, setOverview, setRepos } from '@/stores/slice/repoSlice';
+import { setBranches, setFileStructure, setOverview, setRepos, setUmlCode } from '@/stores/slice/repoSlice';
 import axios from 'axios';
 
 
@@ -22,12 +22,12 @@ export const fetchRepoList = async () => {
 export const fetchRepoOverview = async () => {
     const state = store.getState();
     const selectedRepo = state.repo.selectedRepo;
-    const selectedBranch = state.repo.selectedBranch;
     try {
         const response = await axios.get(`http://localhost:8000/overview/repos/${selectedRepo?.owner}/${selectedRepo?.name}/?access_token=${localStorage.getItem('access_token')}`);
         // console.log(response.data);
         store.dispatch(setOverview(response.data.overview));
         store.dispatch(setFileStructure(response.data.file_structure));
+        store.dispatch(setUmlCode(response.data.plantuml_code));
         await new Promise(resolve => setTimeout(resolve, 0));
     } catch (error) {
         console.error("Error fetching repo overview:", error);

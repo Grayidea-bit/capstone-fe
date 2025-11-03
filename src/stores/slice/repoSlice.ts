@@ -16,6 +16,7 @@ export interface repoStatus {
     selectedRepo?: Repo;
     overview?: string;
     fileStructure?: string;
+    umlCode?: string;
     debt?: Debt;
 
     branches?: Branch[];
@@ -32,6 +33,7 @@ const initialState: repoStatus = {
     selectedRepo: undefined,
     overview: undefined,
     fileStructure: undefined,
+    umlCode: undefined,
     debt: undefined,
     branches: [],
     selectedBranch: undefined,
@@ -77,8 +79,12 @@ const repoSlice = createSlice({
         },
         setDebt: (state, action) => {
             state.debt = action.payload;
-        }
+        },
+        setUmlCode: (state, action) => {
+            state.umlCode = action.payload;
+        },
+
     }
 })
-export const { setRepos, setSelectedRepo, setCommits, setSelectedCommit, setBranches, setSelectedBranch, setOverview, setFileStructure, setCommitOverview, setDiff, setDebt } = repoSlice.actions;
+export const { setRepos, setSelectedRepo, setCommits, setSelectedCommit, setBranches, setSelectedBranch, setOverview, setFileStructure, setCommitOverview, setDiff, setDebt, setUmlCode } = repoSlice.actions;
 export default repoSlice.reducer;

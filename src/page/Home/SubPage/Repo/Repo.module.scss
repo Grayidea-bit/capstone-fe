@@ -8,14 +8,15 @@
 
 .container {
     display: grid;
-    grid-template-rows: 0fr 1fr;
+    grid-template-rows: 0fr auto auto;
     width: 100%;
+    // max-height: fit-content;
     transition: grid-template-rows 0.3s ease-in-out;
-        overflow: hidden;
+    overflow: hidden;
 }
 
 .container.expand {
-    grid-template-rows: 1fr 3fr;
+    grid-template-rows: 1fr auto auto;
 }
 
 .fileTree {
@@ -26,7 +27,10 @@
 }
 
 .overview {
-    min-height: 0;
+    min-height: fit-content;
+}
+.uml {
+    min-height: fit-content;
 }
 
 .btn {
