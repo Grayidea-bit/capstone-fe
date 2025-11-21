@@ -35,7 +35,7 @@ skinparam ranksep 30`);
 
   // Encode the UML code and generate image URL
   const encoded = plantumlEncoder.encode(umlWithCustomStyles);
-  const imageUrl = `https://www.plantuml.com/plantuml/svg/${encoded}`;
+  const imageUrl = `https://plantuml.com/plantuml/svg/${encoded}`;
 
   return (
     <div className={styles.container}>
