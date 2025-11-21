@@ -6,7 +6,8 @@ export const sendMessage = async (message: string, type: string) => {
 
     const selectedRepo = state.repo.selectedRepo;
     const selectedCommit = state.repo.selectedCommit;
-    const url = `http://localhost:8000/chat/repos/${selectedRepo?.owner}/${selectedRepo?.name}?access_token=${localStorage.getItem('access_token')}&question=${encodeURIComponent(message)}&target_sha=${selectedCommit?.sha}&mode=${type}`;
+    const branch = state.repo.selectedBranch?.name;
+    const url = `http://localhost:8000/chat/repos/${selectedRepo?.owner}/${selectedRepo?.name}/${branch}?access_token=${localStorage.getItem('access_token')}&question=${encodeURIComponent(message)}&target_sha=${selectedCommit?.sha}&mode=${type}`;
     try {
         const response = await axios.post(url);
         return response.data.answer;
